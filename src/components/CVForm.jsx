@@ -1,4 +1,3 @@
-// src/components/CVForm.jsx
 import React, { useState } from "react";
 
 const CVForm = ({ onSubmit }) => {
@@ -7,14 +6,26 @@ const CVForm = ({ onSubmit }) => {
     email: "",
     phone: "",
     address: "",
-    education: "",
-    experience: "",
-    skills: "",
+    major: "",
+    university: "",
+    interest: "",
+    training: "",
+    skills: [],
+    certifications: [],
+    certificationYear: "",
+    education: [],
+    internship: [],
+    trainingList: [],
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleArrayChange = (e, field) => {
+    const values = e.target.value.split(",").map((item) => item.trim());
+    setFormData({ ...formData, [field]: values });
   };
 
   const handleSubmit = (e) => {
@@ -76,40 +87,53 @@ const CVForm = ({ onSubmit }) => {
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Pendidikan
+          Jurusan
         </label>
-        <textarea
-          name="education"
-          value={formData.education}
+        <input
+          type="text"
+          name="major"
+          value={formData.major}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-          rows="3"
           required
         />
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Pengalaman Kerja
+          Universitas
         </label>
-        <textarea
-          name="experience"
-          value={formData.experience}
+        <input
+          type="text"
+          name="university"
+          value={formData.university}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-          rows="3"
           required
         />
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Keterampilan
+          Minat/Bidang
         </label>
-        <textarea
+        <input
+          type="text"
+          name="interest"
+          value={formData.interest}
+          onChange={handleChange}
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          required
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Keterampilan (pisahkan dengan koma)
+        </label>
+        <input
+          type="text"
           name="skills"
-          value={formData.skills}
-          onChange={handleChange}
+          value={formData.skills.join(", ")}
+          onChange={(e) => handleArrayChange(e, "skills")}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-          rows="3"
           required
         />
       </div>
